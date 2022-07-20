@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'nav.css' %}">
+<nav>
+    <ul>
+        <li><a href="#">이미지 검색하기</a></li>
+        <li><a href="{% url 'free:list' %}">서비스 소개</a></li>
+        <li><a href="#">피해구제방법</a></li>
+        <li><a href="#">게시판</a></li>
+        {% if user.is_authenticated %}
+        <li class="right_menu"><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
+        <li class="right_menu"><a href="{% url 'profile:mypage' %}">마이페이지</a></li>
+        <li class="right_menu">{{user}}님, 반갑습니다.</li>
+        {% else %}
+        <li class="right_menu"><a href="{% url 'accounts:login' %}">로그인/회원가입</a></li>
+        {% endif %}
+    </ul>
+
+</nav>
