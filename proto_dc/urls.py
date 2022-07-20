@@ -19,9 +19,9 @@ import main.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main.views.main),
+    path('main1/', main.views.main),
     path('accounts/', include('accounts.urls')),
     path('main/', include('main.urls')),
     path('mypageapp/', include('mypageapp.urls')),
-    path('searchapp/', include('searchapp.urls')),
+    path('', include('searchapp.urls')),
 ]
