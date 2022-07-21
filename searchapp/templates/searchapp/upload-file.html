@@ -56,6 +56,9 @@
                 <td>{{ file.uploadedFile.url }}</td>
                 <td>{{ file.dateTimeOfUpload }}</td>
             </tr>
+            <div>
+                <button onclick="location.href='{% url 'searchapp:delete' file_id=file.id %}'">삭제</button>
+            </div>
         {% endfor %}
     </table>
 </body>
