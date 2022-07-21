@@ -1,9 +1,0 @@
-{% autoescape off %}
-<!DOCTYPE html>
-<body>
-    <div>
-        <a href="http://{{ domain }}{% url 'accounts:activate' uid64=uid token=token %}">인증하기</a>
-    </div>           
-</body>
-</html>
-{% endautoescape %}

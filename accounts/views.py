@@ -12,6 +12,12 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
+from .forms import LoginForm
+from django.contrib.auth import login, logout, authenticate
+from django.views.generic import FormView
+from django.conf import settings
+from django.core.exceptions import ValidationError
+
 
 # 회원가입
 class CsRegisterView(CreateView):
@@ -28,7 +34,7 @@ class CsRegisterView(CreateView):
     def get_success_url(self):
         self.request.session['register_auth'] = True
         messages.success(self.request, '회원님의 입력한 Email 주소로 인증 메일이 발송되었습니다. 인증 후 로그인이 가능합니다.')
-        return redirect('accounts:login')
+        return reverse('accounts:register_success')
 
 
     def form_valid(self, form):
@@ -90,3 +96,32 @@ def register_success(request):
     request.session['register_auth'] = False
 
     return render(request, 'accounts/register_success.html')
+
+# 로그인
+@method_decorator(logout_message_required, name='dispatch')
+class LoginView(FormView):
+    template_name = 'accounts/login.html'
+    form_class = LoginForm
+    success_url = '/accounts/main/'
+
+
+    def form_valid(self, form):
+        user_id = form.cleaned_data.get("user_id")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=user_id, password=password)
+
+        if user is not None:
+            self.request.session['user_id'] = user_id
+            login(self.request, user)
+            remember_session = self.request.POST.get('remember_session', False)
+            if remember_session:
+                settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+        return super().form_valid(form)
+
+# 로그아웃
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+
