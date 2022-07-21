@@ -4,6 +4,7 @@ from .models import Document
 import os
 from django.conf import settings
 
+
 def uploadFile(request):
     if request.method == "POST":
         # Fetching the form data
