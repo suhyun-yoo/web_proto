@@ -47,6 +47,7 @@
             <th>ID</th>
             <th>Title</th>
             <th>File Path</th>
+            <th>Delete</th>
             <th>Upload Date & Time</th>
         </tr>
         {% for file in files %}
@@ -54,11 +55,9 @@
                 <td>{{ file.id }}</td>
                 <td>{{ file.title }}</td>
                 <td>{{ file.uploadedFile.url }}</td>
+                <td><button onclick="location.href='{% url 'searchapp:delete' file_id=file.id %}'">삭제</button></td>
                 <td>{{ file.dateTimeOfUpload }}</td>
             </tr>
-            <div>
-                <button onclick="location.href='{% url 'searchapp:delete' file_id=file.id %}'">삭제</button>
-            </div>
         {% endfor %}
     </table>
 </body>
