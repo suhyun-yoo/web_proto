@@ -11,4 +11,6 @@ urlpatterns = [
     #path('main/', views.main_view, name='main'),
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('recovery/id/', views.RecoveryIdView.as_view(), name='recovery_id'),
+    path('recovery/id/find/', views.ajax_find_id_view, name='ajax_id'),
 ]
