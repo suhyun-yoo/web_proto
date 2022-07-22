@@ -66,6 +66,7 @@ class LoginForm(forms.Form):
             if not check_password(password, user.password):
                 self.add_error('password', '비밀번호가 틀렸습니다.')
 
+<<<<<<< Updated upstream
 class RecoveryPwForm(forms.Form):
     user_id = forms.CharField(
         widget=forms.TextInput,)
@@ -88,10 +89,26 @@ class RecoveryPwForm(forms.Form):
         self.fields['name'].widget.attrs.update({
             'class': 'form-control',
             'id': 'pw_form_name',
+=======
+class RecoveryIdForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput,)
+    email = forms.EmailField(widget=forms.EmailInput,)
+
+    class Meta:
+        fields = ['name', 'email']
+
+    def __init__(self, *args, **kwargs):
+        super(RecoveryIdForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = '이름'
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'id': 'form_name',
+>>>>>>> Stashed changes
         })
         self.fields['email'].label = '이메일'
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
+<<<<<<< Updated upstream
             'id': 'pw_form_email',
         })
 
@@ -107,3 +124,7 @@ class CustomSetPasswordForm(SetPasswordForm):
             'class': 'form-control',
         })
 
+=======
+            'id': 'form_email'
+        })
+>>>>>>> Stashed changes
