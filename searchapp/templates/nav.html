@@ -13,7 +13,7 @@
         <li style="list-style:none; float:left; margin-left: 50px;"><a href="#">게시판</a></li>
         {% if user.is_authenticated %}
         <li class="right_menu" style="list-style:none; float:right; margin-right: 10%;"><a href="{% url 'accounts:logout' %}">로그아웃</a></li>
-        <li class="right_menu" style="list-style:none; float:right; margin-right: 10%;"><a href="{% url 'profile:mypage' %}">마이페이지</a></li>
+        <li class="right_menu" style="list-style:none; float:right; margin-right: 10%;"><a href="#">마이페이지</a></li>
         <li class="right_menu" style="list-style:none; float:right; margin-right: 10%;">{{user}}님, 반갑습니다.</li>
         {% else %}
         <li class="right_menu" style="list-style:none; float:right; margin-right: 10%;"><a href="{% url 'accounts:login' %}">로그인/회원가입</a></li>
