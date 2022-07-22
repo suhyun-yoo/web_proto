@@ -1,7 +1,9 @@
 from django import forms
 from .models import User
-from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, UserChangeForm
 from django.contrib.auth.hashers import make_password, check_password
+from django.contrib.auth import get_user_model
+from .choice import *
 
 def hp_validator(value):
     if len(str(value)) != 10:
@@ -35,7 +37,7 @@ class CsRegisterForm(UserCreationForm):
 
         return user
 
-
+# 로그인 폼
 class LoginForm(forms.Form):
     user_id = forms.CharField(
         widget=forms.TextInput(
@@ -126,3 +128,14 @@ class CustomSetPasswordForm(SetPasswordForm):
         })
 
 
+class CustomCsUserChangeForm(UserChangeForm):
+    password = None
+    hp = forms.IntegerField(label='연락처', widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'maxlength':'11', 'oninput':"maxLengthCheck(this)",}),
+    )
+    name = forms.CharField(label='이름', widget=forms.TextInput(
+        attrs={'class': 'form-control', 'maxlength':'8',}),
+    )
+    class Meta:
+        model = User()
+        fields = ['hp', 'name']
