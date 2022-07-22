@@ -66,7 +66,7 @@ class LoginForm(forms.Form):
             if not check_password(password, user.password):
                 self.add_error('password', '비밀번호가 틀렸습니다.')
 
-<<<<<<< Updated upstream
+# 비밀번호찾기 폼
 class RecoveryPwForm(forms.Form):
     user_id = forms.CharField(
         widget=forms.TextInput,)
@@ -89,7 +89,9 @@ class RecoveryPwForm(forms.Form):
         self.fields['name'].widget.attrs.update({
             'class': 'form-control',
             'id': 'pw_form_name',
-=======
+        })
+
+# 아이디찾기 폼
 class RecoveryIdForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput,)
     email = forms.EmailField(widget=forms.EmailInput,)
@@ -103,15 +105,14 @@ class RecoveryIdForm(forms.Form):
         self.fields['name'].widget.attrs.update({
             'class': 'form-control',
             'id': 'form_name',
->>>>>>> Stashed changes
         })
         self.fields['email'].label = '이메일'
         self.fields['email'].widget.attrs.update({
             'class': 'form-control',
-<<<<<<< Updated upstream
             'id': 'pw_form_email',
         })
 
+# 비밀번호찾기 새 비밀번호 입력 폼
 class CustomSetPasswordForm(SetPasswordForm):
     def __init__(self, *args, **kwargs):
         super(CustomSetPasswordForm, self).__init__(*args, **kwargs)
@@ -124,7 +125,4 @@ class CustomSetPasswordForm(SetPasswordForm):
             'class': 'form-control',
         })
 
-=======
-            'id': 'form_email'
-        })
->>>>>>> Stashed changes
+

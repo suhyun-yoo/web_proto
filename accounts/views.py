@@ -17,14 +17,11 @@ from django.contrib.auth import login, logout, authenticate
 from django.views.generic import FormView
 from django.conf import settings
 from django.core.exceptions import ValidationError
-<<<<<<< Updated upstream
 import json
-=======
 from .forms import RecoveryIdForm
 from django.views.generic import View
 import json
 from django.core.serializers.json import DjangoJSONEncoder
->>>>>>> Stashed changes
 
 # 회원가입
 class CsRegisterView(CreateView):
@@ -199,9 +196,8 @@ def auth_pw_reset_view(request):
     else:
         reset_password_form = CustomSetPasswordForm(request.user)
 
-<<<<<<< Updated upstream
     return render(request, 'accounts/password_reset.html', {'form': reset_password_form})
-=======
+
 
 #@method_decorator(logout_message_required, name='dispatch')
 class RecoveryIdView(View):
@@ -221,4 +217,23 @@ def ajax_find_id_view(request):
 
     return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder),
                         content_type="application/json")
->>>>>>> Stashed changes
+
+
+#@method_decorator(logout_message_required, name='dispatch')
+class RecoveryIdView(View):
+    template_name = 'accounts/recovery_id.html'
+    form = RecoveryIdForm
+
+    def get(self, request):
+        if request.method=='GET':
+            form = self.recovery_id(None)
+        return render(request, self.template_name, { 'form':form, })
+
+
+def ajax_find_id_view(request):
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    result_id = User.objects.get(name=name, email=email)
+
+    return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder),
+                        content_type="application/json")
