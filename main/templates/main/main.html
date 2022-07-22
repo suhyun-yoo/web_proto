@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Main</title>
-    <h2>Hello Digital</h2>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'main/main.css'%}">
 
-</body>
-</html>
+<div id="main">
+    <div id="contents">
+        <div id="slide">
+            <a href="{%url 'searchapp:uploadFile' %}"><img src="https://www.lgcns.com/wp-content/uploads/2022/04/1-12.png"></a>
+        </div>
+        
+        <div id="text">
+            <p style="text-align: center;"> <b>디지털 장의사</b> </p>
+            <p> 1) 개인이 원치 않는 인터넷 기록 정리</p>
+            <p> 2) 망자의 디지털 흔적(디지털 유산) 정리 </p>
+            <p> 3) 근거 없는 비방 게시물 및 허위 사실 정리</p>
+        </div>    
+    </div>
+</div>
+    
+{% endblock %}
