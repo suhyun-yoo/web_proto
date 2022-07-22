@@ -98,7 +98,7 @@ def register_success(request):
     return render(request, 'accounts/register_success.html')
 
 # 로그인
-@method_decorator(logout_message_required, name='dispatch')
+#@method_decorator(logout_message_required, name='dispatch')
 class LoginView(FormView):
     template_name = 'accounts/login.html'
     form_class = LoginForm
@@ -109,7 +109,6 @@ class LoginView(FormView):
         user_id = form.cleaned_data.get("user_id")
         password = form.cleaned_data.get("password")
         user = authenticate(self.request, username=user_id, password=password)
-
         if user is not None:
             self.request.session['user_id'] = user_id
             login(self.request, user)
