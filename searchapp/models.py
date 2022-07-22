@@ -8,4 +8,3 @@ class UploadImage(models.Model):
     create_date = models.DateTimeField(auto_now=True)
     request_user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
-
