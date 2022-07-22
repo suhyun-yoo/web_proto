@@ -6,12 +6,5 @@ from django.urls import path, include
 app_name = "searchapp"
 
 urlpatterns = [
-    path("", views.uploadFile, name = "uploadFile"),
-    path('deleteFile/<int:file_id>/', views.deleteFile, name='delete'),
+    path("", views.uploadFile, name="uploadFile"),
 ]
-
-if settings.DEBUG: 
-    urlpatterns += static(
-        settings.MEDIA_URL, 
-        document_root = settings.MEDIA_ROOT
-    )
