@@ -1,6 +1,6 @@
 from . import models
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import UploadImage
+# from .models import UploadImage
 import os
 from django.conf import settings
 
