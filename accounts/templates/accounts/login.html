@@ -1,3 +1,4 @@
+{% include 'nav.html' %}
  <form method="POST" action="." novalidate>
     {% csrf_token %}
 
@@ -44,4 +45,5 @@
     </label>
     <br>
     <button type="submit" style="opacity: 90%; font-size: 16px; margin-top: -5px;" class="btn btn-red btn-lg btn-block">로그인</button>
+    <button><a href="{% url 'accounts:agreement' %}">회원가입</a></button>
 </form>
