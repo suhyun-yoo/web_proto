@@ -17,11 +17,15 @@ from django.contrib.auth import login, logout, authenticate
 from django.views.generic import FormView
 from django.conf import settings
 from django.core.exceptions import ValidationError
-import json
-from .forms import RecoveryIdForm
+from .forms import RecoveryIdForm, CustomCsUserChangeForm
 from django.views.generic import View
 import json
 from django.core.serializers.json import DjangoJSONEncoder
+
+
+@login_message_required
+def main_view(request):
+    return render(request, 'main/main.html')
 
 # 회원가입
 class CsRegisterView(CreateView):
@@ -75,9 +79,12 @@ def activate(request, uid64, token):
     messages.error(request, '메일 인증에 실패했습니다.')
     return redirect('accounts:login')
 
+@login_message_required
+def main_view(request):
+    return render(request, 'main/main.html')
 
 # 회원가입 약관동의
-#@method_decorator(logout_message_required, name='dispatch')
+@method_decorator(logout_message_required, name='dispatch')
 class AgreementView(View):
     def get(self, request, *args, **kwargs):
         request.session['agreement'] = False
@@ -102,11 +109,11 @@ def register_success(request):
     return render(request, 'accounts/register_success.html')
 
 # 로그인
-#@method_decorator(logout_message_required, name='dispatch')
+@method_decorator(logout_message_required, name='dispatch')
 class LoginView(FormView):
     template_name = 'accounts/login.html'
     form_class = LoginForm
-    success_url = '/accounts/main/'
+    success_url = '../main/'
 
 
     def form_valid(self, form):
@@ -117,8 +124,7 @@ class LoginView(FormView):
             self.request.session['user_id'] = user_id
             login(self.request, user)
             remember_session = self.request.POST.get('remember_session', False)
-            if remember_session:
-                settings.SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
 
         return super().form_valid(form)
 
@@ -128,7 +134,7 @@ def logout_view(request):
     return redirect('/')
 
 # 비밀번호찾기
-#@method_decorator(logout_message_required, name='dispatch')
+@method_decorator(logout_message_required, name='dispatch')
 class RecoveryPwView(View):
     template_name = 'accounts/recovery_pw.html'
     recovery_pw = RecoveryPwForm
@@ -172,7 +178,7 @@ def auth_confirm_view(request):
                         content_type="application/json")
 
 
-#@logout_message_required
+@logout_message_required
 def auth_pw_reset_view(request):
     if request.method == 'GET':
         if not request.session.get('auth', False):
@@ -189,7 +195,7 @@ def auth_pw_reset_view(request):
             user = reset_password_form.save()
             messages.success(request, "비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.")
             logout(request)
-            return redirect('users:login')
+            return redirect('accounts:login')
         else:
             logout(request)
             request.session['auth'] = session_user
@@ -199,7 +205,7 @@ def auth_pw_reset_view(request):
     return render(request, 'accounts/password_reset.html', {'form': reset_password_form})
 
 
-#@method_decorator(logout_message_required, name='dispatch')
+@method_decorator(logout_message_required, name='dispatch')
 class RecoveryIdView(View):
     template_name = 'accounts/recovery_id.html'
     form = RecoveryIdForm
@@ -219,15 +225,16 @@ def ajax_find_id_view(request):
                         content_type="application/json")
 
 
-#@method_decorator(logout_message_required, name='dispatch')
+# 아이디찾기
+@method_decorator(logout_message_required, name='dispatch')
 class RecoveryIdView(View):
     template_name = 'accounts/recovery_id.html'
-    form = RecoveryIdForm
+    recovery_id = RecoveryIdForm
 
     def get(self, request):
         if request.method=='GET':
-            form = self.recovery_id(None)
-        return render(request, self.template_name, { 'form':form, })
+            form_id = self.recovery_id(None)
+        return render(request, self.template_name, { 'form_id':form_id, })
 
 
 def ajax_find_id_view(request):
@@ -237,3 +244,27 @@ def ajax_find_id_view(request):
 
     return HttpResponse(json.dumps({"result_id": result_id.user_id}, cls=DjangoJSONEncoder),
                         content_type="application/json")
+
+def main(request):
+    return render(request, 'main/main.html')
+
+@login_message_required
+def profile_view(request):
+    if request.method == 'GET':
+        return render(request, 'accounts/profile.html')
+
+
+@login_message_required
+def profile_update_view(request):
+    if request.method == 'POST':
+        user_change_form = CustomCsUserChangeForm(request.POST, instance = request.user)
+
+        if user_change_form.is_valid():
+            user_change_form.save()
+            messages.success(request, '회원정보가 수정되었습니다.')
+            return render(request, 'accounts/profile.html')
+    else:
+        user_change_form = CustomCsUserChangeForm(instance = request.user)
+
+        return render(request, 'accounts/profile_update.html', {'user_change_form':user_change_form})
+
