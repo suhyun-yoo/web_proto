@@ -156,13 +156,13 @@ def ajax_find_pw_view(request):
         target_user.auth = auth_num
         target_user.save()
 
-        send_mail(
-            '비밀번호 찾기 인증메일입니다.',
-            [email],
-            html=render_to_string('accounts/recovery_email.html', {
-                'auth_num': auth_num,
-            }),
-        )
+        # send_mail(
+        #     '비밀번호 찾기 인증메일입니다.',
+        #     [email],
+        #     html=render_to_string('accounts/recovery_email.html', {
+        #         'auth_num': auth_num,
+        #     }),
+        # )
     return HttpResponse(json.dumps({"result": target_user.user_id}, cls=DjangoJSONEncoder), content_type = "application/json")
 
 # 비밀번호찾기 인증번호 확인
