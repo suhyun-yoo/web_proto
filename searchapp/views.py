@@ -9,16 +9,12 @@ def uploadFile(request):
     if request.method == "POST":
         # Fetching the form data
         uploadedFile = request.FILES["uploadedFile"]
-        user_id = request.user.id
+        user = request.user
         # Saving the information in the database
         uploadImg = models.UploadImage(
             uploadedFile=uploadedFile,
-            request_user=user_id
+            request_user=user
         )
         uploadImg.save()
 
-    uploadImg = models.UploadImage.objects.all()
-
-    return render(request, "searchapp/upload-file.html", context={
-        "files": uploadImg
-    })
+    return render(request, "searchapp/upload-file.html")
