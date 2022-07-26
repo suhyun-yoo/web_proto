@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+.main{
+    background-image:url("https://www.ptc.com/-/media/Images/Blog/post/plr-blog/digital-for-frontline-workers-featured.jpg?h=450&iar=0&w=900")
+}
+
+.main-text{
+    font-family: 'Anton', sans-serif;
+    color: white;
+}
+
+.main-explane{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: white;
+}
+.content{
+    margin-bottom: 100px;
+}
+
+.display-text{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 40px;
+}
+
+.detail-text{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+}
