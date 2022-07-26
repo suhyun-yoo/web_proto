@@ -13,11 +13,10 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div style="position: absolute; top: 45%; height: 504.18px; margin-top: -252.09px;">
-            <div class="card" style="width: 32rem;">
+            <div class="card"  style="width: 32rem; margin-left: 500px; margin-top: 50px;">
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="{% static 'img/logo2.jpg' %}"
-                            style="width: 40%; margin-top:10px; margin-bottom: -30px;">
+                        <img src="{% static 'img/logo.jpg' %}" style="width:60%; margin:30px; border-radius: 20px; margin-bottom: -30px;">
                     </div>
                     <div class="row mt-5">
                         <div class="col-12">
@@ -39,13 +38,13 @@
                                 <label name="label_email" for="{{ form_pw.email.id_for_label }}"><i
                                         class="fas fa-envelope"></i>&nbsp;&nbsp;{{ form_pw.email.label }}</label>
                                     {{ form_pw.email }}
-                                <small class="form-text text-muted">
+                                <small class="form-text text-muted" style="margin-left:90px">
                                     등록하신 메일로 인증번호가 발송됩니다.
                                 </small>
                             </div>
                             <!--비밀번호찾기 버튼-->
                             <div id="div_find_pw" style="padding-top:10px;" class="row justify-content-md-center">
-                                <button id="find_pw" class="btn btn-red" style="opacity: 90%; font-size: 16px;" name="recovery_pw"><i class="fas fa-search"></i>&nbsp;&nbsp;비밀번호찾기</button>
+                                <button id="find_pw" class="btn btn-red" style="text-align:center; font-size: 16px; width: 130px; background-color: rgb(176, 176, 176);" name="recovery_pw"><i class="fas fa-search"></i>비밀번호찾기</button>
                             </div>
 
                             <div style="text-align: center; margin-top: 10px; margin-bottom: -10px;">
@@ -55,7 +54,7 @@
                             <div id="result_pw"></div>
 
                             <br>
-                            <span style="color:gray; font-size: 14px;" >&middot;&nbsp;아이디를 잊으셨나요?</span>
+                            <span style="color:gray; font-size: 14px;" >아이디를 잊으셨나요?</span>
                             <a style="text-decoration:underline; color:black; font-size: 14px;" href="{% url 'accounts:recovery_id' %}">아이디찾기</a>
                             <script src="http://code.jquery.com/jquery-latest.js"></script>
                             <script type="text/javascript">

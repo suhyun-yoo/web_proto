@@ -2,19 +2,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 .main{
-    background-image:url("https://www.ptc.com/-/media/Images/Blog/post/plr-blog/digital-for-frontline-workers-featured.jpg?h=450&iar=0&w=900")
+    position: relative;
+    background-image:url("https://www.appier.com/hubfs/Imported_Blog_Media/EN04102018_%EC%95%A0%ED%94%BC%EC%96%B4-%EB%A7%88%EC%BC%80%ED%84%B0%EA%B0%80-%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5AI%EC%9C%BC%EB%A1%9C%EB%94%94%EC%A7%80%ED%84%B8-%EC%86%8C%EB%B9%84%EC%9E%90-%EC%97%AC%EC%A0%95%EC%9D%84-%ED%83%90%EC%83%89%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%B0%A9%EB%B2%95-%EC%86%8C%EA%B0%9C.jpg");
+    background-repeat: no-repeat;
+}
+
+.main::before{
+    content:"";
+    opacity:0.7;
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    background-color: rgb(18, 18, 47);
 }
 
 .main-text{
+    padding: auto;
+    position: relative;
     font-family: 'Anton', sans-serif;
     color: white;
+    font-size: 55px;
 }
 
 .main-explane{
+    position: relative;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 13px;
-    color: white;
+    color: rgb(212, 212, 212);
 }
+
+.btn{
+    position: relative;
+}
+
 .content{
     margin-bottom: 100px;
 }
@@ -27,4 +49,10 @@
 .detail-text{
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 20px;
+}
+
+.box1{
+    width: 80%; 
+    height: 300px; 
+    border-radius: 21px 21px 0 0;
 }
