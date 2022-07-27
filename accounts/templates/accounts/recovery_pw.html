@@ -16,7 +16,7 @@
             <div class="card"  style="width: 32rem; margin-left: 35%; margin-top: 1%;">
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="{% static 'img/logo.jpg' %}" style="width:60%; margin:30px; border-radius: 20px; margin-bottom: -30px;">
+                        <img src="{% static 'img/logo.jpg' %}" style="width:60%; margin:30px; border-radius: 20px; margin-bottom: 30px;">
                     </div>
                     <div class="row mt-5">
                         <div class="col-12">
@@ -27,24 +27,27 @@
                                     class="fas fa-user"></i>&nbsp;&nbsp;{{ form_pw.user_id.label }}</label>
                                     {{ form_pw.user_id }}
                             </div>
+
                             <!--이름-->
                             <div class="mb-4 md-form">
                                 <label name="label_name" for="{{ form_pw.name.id_for_label }}"><i
                                     class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ form_pw.name.label }}</label>
                                     {{ form_pw.name }}
                             </div>
+
                             <!--이메일-->
                             <div class="mb-4 md-form">
                                 <label name="label_email" for="{{ form_pw.email.id_for_label }}"><i
-                                        class="fas fa-envelope"></i>&nbsp;&nbsp;{{ form_pw.email.label }}</label>
+                                        class="fas fa-envelope"></i>&nbsp;&nbsp;{{ form_pw.email.label }}</label><br>
                                     {{ form_pw.email }}
-                                <small class="form-text text-muted" style="margin-left:90px">
+                                    <br>
+                                <small class="form-text text-muted" style="margin-left:25%">
                                     등록하신 메일로 인증번호가 발송됩니다.
                                 </small>
                             </div>
                             <!--비밀번호찾기 버튼-->
                             <div id="div_find_pw" style="padding-top:10px;" class="row justify-content-md-center">
-                                <button id="find_pw" class="btn btn-red" style="text-align:center; font-size: 16px; width: 130px; background-color: rgb(176, 176, 176);" name="recovery_pw"><i class="fas fa-search"></i>비밀번호찾기</button>
+                                <button id="find_pw" class="btn btn-dark btn-md" style="text-align:center; font-size: 16px; width: 130px;" name="recovery_pw"><i class="fas fa-search"></i>비밀번호찾기</button>
                             </div>
 
                             <div style="text-align: center; margin-top: 10px; margin-bottom: -10px;">

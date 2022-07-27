@@ -22,6 +22,8 @@ class CsRegisterForm(UserCreationForm):
         self.fields['password1'].label = '비밀번호'
         self.fields['password1'].widget.attrs.update({
             'class': 'form-control',
+            'autofocus': False
+
         })
 
     class Meta:

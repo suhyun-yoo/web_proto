@@ -1,3 +1,4 @@
+{% extends "accounts/user_base.html" %}
 {% load static %}
 {% include 'nav.html' %}
 
@@ -9,18 +10,20 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div style="position: absolute; top: 50%; height: 876.39px; margin-top: -438.195px;">
-            <div class="card" style="width: 40rem;">
+            <div class="card" style="width: 40rem; margin-left: 30%; margin-top: 10%; margin-bottom: 100px;">
                 <div class="card-body">
                     <div class="text-center">
-                        <img src="{% static 'img/logo.jpg' %}"
-                            style="width: 30%; margin-top:10px; margin-bottom: -30px;">
+                        <img src="{% static 'img/logo.jpg' %} "
+                            style="width: 30%; margin-top:10px; margin-bottom: -30px; border-radius: 20px;">
                     </div>
+
                     <div class="row mt-5">
                         <div class="col-12">
                             <form action="" id="signup" method="POST" novalidate>
                                 {% csrf_token %}
+
                                 <!--아이디-->
-                                <div class="mb-4 md-form">
+                                <div class="mb-4 md-form" style="text-align: center;">
                                     <label name="label_user_id" for="{{ form.user_id.id_for_label }}"><i
                                             class="fas fa-user"></i>&nbsp;&nbsp;{{ form.user_id.label }}</label>
                                     {{ form.user_id }}
@@ -41,62 +44,63 @@
                                     </div>
                                     {% endfor %}
                                     {% endif %}
-                                    <small class="form-text text-muted">
-                                        로그인 시 사용할 아이디를 입력해주세요.
+                                </div>
+
+                                <!--비밀번호-->
+                                <div class="form-row">
+                                    <div class="col-md-6" style="margin-top:-25px; margin-bottom: -25px; width: 30px;">
+                                        <div class="mb-4 md-form">
+                                            <label name="label_password2" for="{{ form.password2.id_for_label }}"><i
+                                                    class="fas fa-unlock"></i>&nbsp;&nbsp;비밀번호</label>
+                                            {{ form.password2 }}
+                                            <script type="text/javascript">
+                                                if (document.getElementsByName('password2')[0].value != '') {
+                                                    document.getElementsByName('label_password2')[0].setAttribute('class', 'active');
+                                                }
+                                            </script>
+                                            {% if form.password2.errors %}
+                                            <script type="text/javascript">
+                                                document.getElementsByName('password2')[0].setAttribute('class',
+                                                    'form-control is-invalid')
+                                            </script>
+                                            {% for error in form.password2.errors %}
+                                            <div style="white-space: nowrap;" class="invalid-feedback">
+                                                {{ error }}
+                                            </div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <!--비밀번호확인-->
+                                    <div class="col-md-6" style="margin-top:-25px; margin-bottom: -25px;">
+                                        <div class="mb-4 md-form">
+                                            <label name="label_password1" for="{{ form.password1.id_for_label }}"><i
+                                                    class="fas fa-unlock-alt"></i>&nbsp;&nbsp;비밀번호 확인</label>
+                                            {{ form.password1 }}
+                                            <script type="text/javascript">
+                                                if (document.getElementsByName('password1')[0].value != '') {
+                                                    document.getElementsByName('label_password1')[0].setAttribute('class','active');
+                                                }
+                                            </script>
+                                            {% if form.password1.errors %}
+                                            <script type="text/javascript">
+                                                document.getElementsByName('password1')[0].setAttribute('class',
+                                                    'form-control is-invalid')
+                                            </script>
+                                            {% for error in form.password1.errors %}
+                                            <div class="invalid-feedback">
+                                                {{ error }}
+                                            </div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <small style="margin-left: 4px; margin-top:8px;" class="form-text text-muted">
+                                        최소 8개의 숫자와 문자 또는 특수기호를 입력해주세요. 일상적인 비밀번호는 사용할 수 없습니다.
                                     </small>
                                 </div>
-                                <!--비밀번호-->
-                                <div class="col-md-6" style="margin-top:1px; margin-bottom: 1px;">
-                                    <div class="mb-4 md-form">
-                                        <label name="label_password2" for="{{ form.password2.id_for_label }}"><i
-                                                class="fas fa-unlock"></i>&nbsp;&nbsp;비밀번호</label>
-                                        {{ form.password2 }}
-                                        <script type="text/javascript">
-                                            if (document.getElementsByName('password2')[0].value != '') {
-                                                document.getElementsByName('label_password2')[0].setAttribute('class', 'active');
-                                            }
-                                        </script>
-                                        {% if form.password2.errors %}
-                                        <script type="text/javascript">
-                                            document.getElementsByName('password2')[0].setAttribute('class',
-                                                'form-control is-invalid')
-                                        </script>
-                                        {% for error in form.password2.errors %}
-                                        <div style="white-space: nowrap;" class="invalid-feedback">
-                                            {{ error }}
-                                        </div>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <!--비밀번호확인-->
-                                <div class="col-md-6" style="margin-top:1px; margin-bottom: 1px;">
-                                    <div class="mb-4 md-form">
-                                        <label name="label_password1" for="{{ form.password1.id_for_label }}"><i
-                                                class="fas fa-unlock-alt"></i>&nbsp;&nbsp;비밀번호 확인</label>
-                                        {{ form.password1 }}
-                                        <script type="text/javascript">
-                                            if (document.getElementsByName('password1')[0].value != '') {
-                                                document.getElementsByName('label_password1')[0].setAttribute('class','active');
-                                            }
-                                        </script>
-                                        {% if form.password1.errors %}
-                                        <script type="text/javascript">
-                                            document.getElementsByName('password1')[0].setAttribute('class',
-                                                'form-control is-invalid')
-                                        </script>
-                                        {% for error in form.password1.errors %}
-                                        <div class="invalid-feedback">
-                                            {{ error }}
-                                        </div>
-                                        {% endfor %}
-                                        {% endif %}
-                                    </div>
-                                </div>
-                                <small style="margin-left: 4px; margin-top:8px;" class="form-text text-muted">
-                                    최소 8개의 숫자와 문자 또는 특수기호를 입력해주세요. 일상적인 비밀번호는 사용할 수 없습니다.
-                                </small>
-                                </div>
+
                                 <!--이메일-->
                                 <div class="mb-4 md-form">
                                     <label name="label_email" for="{{ form.email.id_for_label }}"><i
@@ -123,6 +127,7 @@
                                         회원가입 후 입력하신 메일주소로 본인인증 메일이 전송됩니다.
                                     </small>
                                 </div>
+
                                 <!--이름-->
                                 <div class="mb-4 md-form">
                                     <label name="label_name" for="{{ form.name.id_for_label }}"><i
@@ -174,8 +179,8 @@
                                     </small>
                                 </div>
                                 <br>
-                                <button type="submit" style="opacity: 90%; font-size: 16px; margin-top: -5px;"
-                                    class="btn btn-red btn-md btn-block">회원가입</button>
+                                <button type="submit" style="opacity: 90%; font-size: 16px; margin-top: -5px; width: 20%; margin-left: 40%;"
+                                    class="btn btn-dark btn-md">회원가입</button>
                             </form>
                         </div>
                     </div>
