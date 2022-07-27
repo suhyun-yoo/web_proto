@@ -1,5 +1,4 @@
 {% extends "accounts/accounts_base.html" %}
-{% include 'nav.html' %}
 
 {% load static %}
 
@@ -11,14 +10,15 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div style="position: absolute; top: 50%; height: 778.98px; margin-top: -389.49px;">
-            <div class="card" style="width: 40rem;">
+            <div class="card" style="width: 40rem; margin-left: 30%; margin-top: 7%;">
                 <div class="card-body">
                     <div class="text-center" style="display:block; margin:auto;">
                         <img src="{% static 'img/logo.jpg' %}" style="width: 30%; margin-top:10px; margin-bottom: -30px;">
                     </div>
+                    <hr style="margin-top: 10%;">
                     <div class="row mt-5">
                         <div class="col-12">
-                            <p style="font-weight: bold;"><i class="fas fa-check"></i> 이용약관</p>
+                            <p style="font-weight: bold; text-align: center;"><i class="fas fa-check"></i> 이용약관</p>
                             <div class="z-depth-1"
                                 style="font-size: 13px; background-color: white; border:1px solid #ddd; height:195px;overflow:auto;padding:5px;">
                                 <dl>
@@ -337,7 +337,7 @@
                             </div>
                             <form action="" , method="POST">
                                 {% csrf_token %}
-                                <div class="col-12 text-right">
+                                <div class="col-12 text-right" style="margin-left: 65%;">
                                     <label style="padding-top: 10px;">
                                         <input type="checkbox" name="agreement1" />
                                         <span style="font-weight: bold;">이용약관에 동의합니다.</span>
@@ -345,7 +345,7 @@
                                     <!-- <strong><input type="checkbox" name="agreement1"> 이용약관에 동의합니다.</strong> -->
                                 </div>
                                 <br>
-                                <p style="font-weight: bold;"><i class="fas fa-check"></i> 개인정보 수집 및 이용</p>
+                                <p style="font-weight: bold; text-align: center;"><i class="fas fa-check"></i> 개인정보 수집 및 이용</p>
                                 <div class="z-depth-1"
                                     style="font-size: 13px; background-color: white; border:1px solid #ddd; height:195px;overflow:auto;padding:5px;">
                                     <dl>
@@ -532,7 +532,7 @@
                                         </dd>
                                     </dl>
                                 </div>
-                                <div class="col-12 text-right">
+                                <div class="col-12 text-right" style="margin-left: 50%;">
                                     <label style="padding-top: 10px;">
                                         <input type="checkbox" name="agreement2" />
                                         <span style="font-weight: bold;">개인정보 수집 및 이용에 동의합니다.</span>
@@ -542,7 +542,7 @@
                             </div>
 
                             <div class="col-12 text-center">
-                                <button type="submit" name="csregister" style="opacity: 90%; font-size: 16px;"
+                                <button type="submit" name="csregister"  style="font-size: 16px; background-color: rgb(176, 176, 176);"
                                     class="btn btn-red" data-toggle="tooltip" data-placement="top"
                                     title="" value="csregister">회원가입</button>
                             </div>
