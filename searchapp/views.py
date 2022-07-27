@@ -1,10 +1,6 @@
 from . import models
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Request, SearchedData
-import os
-from django.conf import settings
 from . import face_comparison
-from crawlingapp.models import CrawlingData
 
 
 def uploadFile(request):
