@@ -24,7 +24,8 @@ urlpatterns = [
     path('', main.views.main),
     path('accounts/', include('accounts.urls')),
     path('main/', include('main.urls')),
-    path('mypageapp/', include('mypageapp.urls')),
-    path('searchapp/', include('searchapp.urls')),
+    path('mypage/', include('mypageapp.urls')),
+    path('search/', include('searchapp.urls')),
+    # path('crawling/', include('crawlingapp.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'mypageapp',
     'searchapp',
+    'crawlingapp',
 ]
 
 MIDDLEWARE = [
