@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from searchapp.models import Request
+from searchapp.models import Request, SearchedData
 # Create your views here.
 
 
@@ -11,4 +11,8 @@ def mypage(request):
     except:
         request_list = []
 
-    return render(request, 'mypageapp/mypage.html', {'request_list': request_list})
+    searched_list = []
+    for req in request_list:
+        searched_list.extend(SearchedData.objects.all().filter(request_id=req.id))
+
+    return render(request, 'mypageapp/mypage.html', {'request_list': request_list, "searched_list": searched_list, })

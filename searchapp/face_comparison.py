@@ -1,23 +1,26 @@
 import dlib
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import matplotlib.patheffects as path_effects
-import operator
 from crawlingapp.models import CrawlingData
-from .models import Request, SearchedData
+from .models import SearchedData
 
+
+# 모델 객체 선언
+# 얼굴 탐지 모델
+detector = dlib.get_frontal_face_detector()
+# 랜드마크 탐지 모델
+sp = dlib.shape_predictor('searchapp/models/shape_predictor_68_face_landmarks.dat')
+# 얼굴인식 모델
+facerec = dlib.face_recognition_model_v1('searchapp/models/dlib_face_recognition_resnet_model_v1.dat')
+
+all_crawling_data = CrawlingData.objects.all().order_by("-id")
 
 # Step 1. 받아온 이미지에서 얼굴을 탐지한다.
 # input img에서 얼굴을 찾는 함수,
-def find_faces(img_path):
-    # 이미지 경로를 받아 RGB 로(BGR2RGB) 변환하여 사용한다.
-    img_bgr = cv2.imread(img_path)  # cvtColor 로 컬러체계를 바꾼다
-    img = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
-
+def find_faces(img_rgb):
+    global detector, sp, facerec, all_crawling_data
     # dets -> 얼굴을 찾은 결과물을 담을 변수
-    dets = detector(img, 1)
+    dets = detector(img_rgb, 1)
 
     # dets에 결과물이 없다 == 얼굴을 하나도 못찾은 경우
     # 빈 배열들을 반환 - 여기서 로직 끝남
@@ -36,7 +39,7 @@ def find_faces(img_path):
         rects.append(rect)
 
         # 랜드 마크 구하기
-        shape = sp(img, d)
+        shape = sp(img_rgb, d)
         for i in range(0, 68):
             shapes_np[k][i] = (shape.part(i).x, shape.part(i).y)
         shapes.append(shape)
@@ -60,11 +63,10 @@ def encode_faces(img, shapes):
 def comparison(target_desc):
     result_list = []
     for i in range(len(all_crawling_data)):
-        tmp_desc = img_encoding(all_crawling_data[i].img)
-        found = False
+        img_path = str(all_crawling_data[i].img)
+        tmp_desc = img_encoding(img_path)
         dist = np.linalg.norm([target_desc] - tmp_desc, axis=1)
-
-        if dist[1] < 0.45:
+        if dist[0] < 0.45:
             result_list.append(all_crawling_data[i])
 
     return result_list
@@ -74,7 +76,7 @@ def comparison(target_desc):
 def save_result(request, result_list):
     for result in result_list:
         searched_data = SearchedData(
-            request=request.id,
+            request=request,
             link=result.link,
             img=result.img,
         )
@@ -83,26 +85,10 @@ def save_result(request, result_list):
 
 def img_encoding(img_path):
     # 고객 사진 인코딩
-    descs = []
+    img_path = "media/"+img_path
     img_bgr = cv2.imread(img_path)
     img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
     _, img_shapes, _ = find_faces(img_rgb)
     descs = encode_faces(img_rgb, img_shapes)[0]
 
     return descs
-
-
-if __name__ == "__main__":
-    # 모델 객체 선언
-    # 얼굴 탐지 모델
-    detector = dlib.get_frontal_face_detector()
-    # 랜드마크 탐지 모델
-    sp = dlib.shape_predictor('models/shape_predictor_68_face_landmarks.dat')
-    # 얼굴인식 모델
-    facerec = dlib.face_recognition_model_v1('models/dlib_face_recognition_resnet_model_v1.dat')
-
-    all_crawling_data = CrawlingData.objects.all().order_by("-id")
-
-
-
-

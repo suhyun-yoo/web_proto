@@ -32,6 +32,27 @@
                 </tbody>
             </table>
         </div>
+        <div></div>
+        <div>
+            <table style = "width: 100%; text-align:center; width: 100%; border-bottom: 1px solid #cccccc;">
+                <thead>
+                <tr style = "border-bottom: 1px solid #cccccc; border-top: 1px solid #cccccc;" >
+                    <th>요청번호</th>
+                    <th>link</th>
+                    <th>이미지</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for data in searched_list%}
+                    <tr onclick="location.href='/free/post/{{post.id}}'" style="cursor:pointer; ">
+                        <td>{{data.request_id}}</td>
+                        <td style="max-width:100px">{{data.link}}</td>
+                        <td><a href="../media/{{data.img}}">이미지 확인</a></td>
+                    </tr>
+                {%endfor%}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 

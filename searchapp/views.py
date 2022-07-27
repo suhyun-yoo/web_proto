@@ -20,9 +20,9 @@ def uploadFile(request):
         uploadImg.save()
         # search함수 부르기
         # input -> uploadedFile
-        target_desc = face_comparison.img_encoding(uploadedFile)
+        target_desc = face_comparison.img_encoding(str(uploadImg.uploadedFile))
         # Output -> SearchedData 타입, 저장하기.
-        face_comparison.save_result(uploadImg.id, face_comparison.comparison(target_desc))
-        return render(request, "mypageapp/mypage.html")
+        face_comparison.save_result(uploadImg, face_comparison.comparison(target_desc))
+        return render(request, "mypageapp/mypage.html") # 요청완료 페이지
 
     return render(request, "searchapp/upload-file.html")

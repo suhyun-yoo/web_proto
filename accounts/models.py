@@ -5,10 +5,10 @@ from .choice import *
 class UserManager(BaseUserManager):
     def create_user(self, user_id, password, email, hp, name, **extra_fields):
         user = self.model(
-            user_id = user_id,
-            email = email,
-            hp = hp,
-            name = name,
+            user_id=user_id,
+            email=email,
+            hp=hp,
+            name=name,
             **extra_fields
         )
         user.set_password(password)
@@ -20,6 +20,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
@@ -29,7 +30,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     hp = models.IntegerField(verbose_name="핸드폰번호", null=True, unique=True)
     name = models.CharField(max_length=8, verbose_name="이름", null=True)
     level = models.CharField(choices=LEVEL_CHOICES, max_length=18, verbose_name="등급", default=3)
-
 
     USERNAME_FIELD = 'user_id'
     REQUIRED_FIELDS = ['email']
