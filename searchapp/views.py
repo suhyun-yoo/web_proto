@@ -19,6 +19,6 @@ def uploadFile(request):
         target_desc = face_comparison.img_encoding(str(uploadImg.uploadedFile))
         # Output -> SearchedData 타입, 저장하기.
         face_comparison.save_result(uploadImg, face_comparison.comparison(target_desc))
-        return render(request, "mypageapp/mypage.html") # 요청완료 페이지
+        return redirect("mypage:mypage") # 요청완료 페이지
 
     return render(request, "searchapp/upload-file.html")
