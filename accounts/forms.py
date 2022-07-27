@@ -70,12 +70,9 @@ class LoginForm(forms.Form):
 
 # 비밀번호찾기 폼
 class RecoveryPwForm(forms.Form):
-    user_id = forms.CharField(
-        widget=forms.TextInput,)
-    name = forms.CharField(
-        widget=forms.TextInput,)
-    email = forms.EmailField(
-        widget=forms.EmailInput,)
+    user_id = forms.CharField(widget=forms.TextInput,)
+    name = forms.CharField(widget=forms.TextInput,)
+    email = forms.EmailField(widget=forms.EmailInput,)
 
     class Meta:
         fields = ['user_id', 'name', 'email']

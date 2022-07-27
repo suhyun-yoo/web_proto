@@ -19,17 +19,10 @@ def uploadFile(request):
         )
         uploadImg.save()
         # search함수 부르기
-        # result = img_encoding([uploadImg])
-        # # img_encoding() 이라는 함수의 return type이 CrawlingData타입이어야
-        # all_crawling_data = CrawlingData.objects.all().order_by("-id")
-        # for res in result:
-        #     searchedImg = models.SearchedData(
-        #         request=uploadImg.id,
-        #         img=uploadedFile,
-        #         link=user
-        #     )
-
         # input -> uploadedFile
+        target_desc = face_comparison.img_encoding(uploadedFile)
         # Output -> SearchedData 타입, 저장하기.
+        face_comparison.save_result(uploadImg.id, face_comparison.comparison(target_desc))
+        return render(request, "mypageapp/mypage.html")
 
     return render(request, "searchapp/upload-file.html")

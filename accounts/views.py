@@ -115,7 +115,6 @@ class LoginView(FormView):
     form_class = LoginForm
     success_url = '../main/'
 
-
     def form_valid(self, form):
         user_id = form.cleaned_data.get("user_id")
         password = form.cleaned_data.get("password")
@@ -142,7 +141,7 @@ class RecoveryPwView(View):
     def get(self, request):
         if request.method=='GET':
             form = self.recovery_pw(None)
-            return render(request, self.template_name, { 'form':form, })
+            return render(request, self.template_name, { 'form_pw':form, })
 
 # 아이디찾기 AJAX 통신
 def ajax_find_pw_view(request):
