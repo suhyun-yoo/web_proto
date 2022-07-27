@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import matplotlib.patheffects as path_effects
 import operator
-from crawringapp.models import CrawringData
+from crawlingapp.models import CrawlingData
 from .models import Request, SearchedData
 
 
@@ -85,7 +85,7 @@ def img_encoding(img_path):
     # 고객 사진 인코딩
     descs = []
     img_bgr = cv2.imread(img_path)
-    img_rgb = cv2.cvtColor(img_bgr_target, cv2.COLOR_BGR2RGB)
+    img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
     _, img_shapes, _ = find_faces(img_rgb)
     descs = encode_faces(img_rgb, img_shapes)[0]
 
