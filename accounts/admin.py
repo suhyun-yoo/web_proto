@@ -6,7 +6,6 @@ class UserAdmin(admin.ModelAdmin):
     list_display = (
         'user_id',
         'name',
-        'level',
         )
     search_fields = ('user_id', 'name')
 

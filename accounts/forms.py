@@ -32,7 +32,7 @@ class CsRegisterForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super(CsRegisterForm, self).save(commit=False)
-        user.level = '2'
+        user.level = '0'
         user.department = '일반'
         user.is_active = False
         user.save()
