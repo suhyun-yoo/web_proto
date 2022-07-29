@@ -1,10 +1,13 @@
 import os
+import sys
+
 import requests
+from PIL import Image, ImageSequence
 from bs4 import BeautifulSoup
 import time
 from os.path import getsize
 from .models import CrawlingData
-
+import moviepy.editor as mp
 
 def image_download(BASE_URL):
     # 헤더 설정 (필요한 대부분의 정보 제공 -> Bot Block 회피)
@@ -34,13 +37,15 @@ def image_download(BASE_URL):
         img_tag = li.find('a', href=True)
         img_url = img_tag['href']
 
+        # gif 동영상으로 변환
         file_ext = img_url.split('.')[-1]
+
         # 저장될 파일명
         savename = img_url.split("no=")[2]
         headers['Referer'] = BASE_URL
         response = requests.get(img_url, headers=headers)
 
-        path = f"{savename}"
+        path = f"CrawlingImg/{savename}"
         file_size = len(response.content)
 
         if os.path.isfile(path):  # 이름이 똑같은 파일이 있으면
@@ -48,21 +53,51 @@ def image_download(BASE_URL):
                 print("이름은 겹치는 다른파일입니다. 다운로드 합니다.")
                 file = open("media/" + path + "[1]", "wb")  # 경로 끝에 [1] 을 추가해 받는다.
                 file.write(response.content)
-                crawlingimg.save()
+
+                # gif 파일 처리 방법 : 1. 동영상으로 변환한다.
+                # if file_ext == 'gif':
+                #     file = mp.VideoFileClip("media/" + path)
+                #     mp4_path = ("media/" + path).split('.')[0] + ".mp4"
+                #     file.write_videofile(mp4_path)
+                #     path = path.split('.')[0] + ".mp4"
+
+                # gif 파일 처리 방법 : 2. 첫 장면만 잘라 이미지로 저장한다.
+                if file_ext == 'gif':
+                    im = Image.open("media/" + path)
+                    path = path.split('.')[0] + '.png'
+                    ImageSequence.Iterator(im)[0].save("media/" + path)
+
+                print("name :", path)
                 crawlingimg = CrawlingData(
                     link=BASE_URL,
                     img=path + "[1]",
                 )
+                crawlingimg.save()
                 file.close()
             else:
                 print("동일한 파일이 존재합니다. PASS")
         else:
             file = open("media/" + path, "wb")
             file.write(response.content)
+
+            # if file_ext == 'gif':
+            #     file = mp.VideoFileClip("media/" + path)
+            #     mp4_path = ("media/" + path).split('.')[0] + ".mp4"
+            #     file.write_videofile(mp4_path)
+            #     path = path.split('.')[0] + ".mp4"
+
+            # gif 파일 처리 방법 : 2. 첫 장면만 잘라 이미지로 저장한다.
+            if file_ext == 'gif':
+                im = Image.open("media/" + path)
+                path = path.split('.')[0] + '.png'
+                ImageSequence.Iterator(im)[0].save("media/" + path)
+
+            print("name :", path)
             crawlingimg = CrawlingData(
                 link=BASE_URL,
                 img=path,
             )
+
             crawlingimg.save()
             file.close()
 

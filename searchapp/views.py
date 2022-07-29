@@ -1,3 +1,5 @@
+import time
+
 from . import models
 from django.shortcuts import render, get_object_or_404, redirect
 from . import face_comparison
@@ -9,6 +11,8 @@ def uploadFile(request):
         uploadedFile = request.FILES["uploadedFile"]
         user = request.user
         # Saving the information in the database
+        # print(uploadedFile)
+        # print(type(uploadedFile))
         uploadImg = models.Request(
             uploadedFile=uploadedFile,
             request_user=user
