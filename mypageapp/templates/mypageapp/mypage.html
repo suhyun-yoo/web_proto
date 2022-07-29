@@ -46,7 +46,7 @@
                 {% for data in searched_list%}
                     <tr onclick="#" style="cursor:pointer; ">
                         <td>{{data.request_id}}</td>
-                        <td style="max-width:100px">{{data.link}}</td>
+                        <td style="max-width:100px"><a href="{{data.link}}">{{data.link}}</a></a></td>
                         <td><a href="../media/{{data.img}}">이미지 확인</a></td>
                     </tr>
                 {%endfor%}
