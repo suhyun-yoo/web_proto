@@ -22,7 +22,7 @@
                 </thead>
                 <tbody>
                 {% for req in request_list%}
-                    <tr onclick="location.href='/free/post/{{post.id}}'" style="cursor:pointer; ">
+                    <tr onclick="#" style="cursor:pointer; ">
                         <td>{{req.id}}</td>
                         <td style="max-width:100px">{{req.create_date|date:'y.m.d H:i'}}</td>
                         <td>{{req.done}}</td>
@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                 {% for data in searched_list%}
-                    <tr onclick="location.href='/free/post/{{post.id}}'" style="cursor:pointer; ">
+                    <tr onclick="#" style="cursor:pointer; ">
                         <td>{{data.request_id}}</td>
                         <td style="max-width:100px">{{data.link}}</td>
                         <td><a href="../media/{{data.img}}">이미지 확인</a></td>
