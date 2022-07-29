@@ -34,7 +34,7 @@ class CsRegisterForm(UserCreationForm):
         user = super(CsRegisterForm, self).save(commit=False)
         user.level = '0'
         user.department = '일반'
-        user.is_active = False
+        user.is_active = True
         user.save()
 
         return user
