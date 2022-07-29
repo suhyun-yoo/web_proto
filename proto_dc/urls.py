@@ -26,6 +26,6 @@ urlpatterns = [
     path('main/', include('main.urls')),
     path('mypage/', include('mypageapp.urls')),
     path('search/', include('searchapp.urls')),
-    # path('crawling/', include('crawlingapp.urls')),
+    path('crawling/', include('crawlingapp.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

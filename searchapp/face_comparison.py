@@ -1,3 +1,5 @@
+import time
+
 import dlib
 import cv2
 import numpy as np
@@ -62,13 +64,23 @@ def encode_faces(img, shapes):
 # Step 3. 크롤링된 데이터와 비교하여 검색 결과값을 만든다.
 def comparison(target_desc):
     result_list = []
+    start_time = time.process_time()
+    print("crawling start :", start_time)
+    print(len(all_crawling_data))
     for i in range(len(all_crawling_data)):
         img_path = str(all_crawling_data[i].img)
         tmp_desc = img_encoding(img_path)
-        dist = np.linalg.norm([target_desc] - tmp_desc, axis=1)
-        if dist[0] < 0.45:
-            result_list.append(all_crawling_data[i])
+        print(img_path)
+        if tmp_desc != []:
+            print("have faces")
+            dist = np.linalg.norm([target_desc] - tmp_desc, axis=1)
+            print(dist)
+            if dist[0] < 0.40:
+                result_list.append(all_crawling_data[i])
 
+    end_time = time.process_time()
+    print("crawling end :", end_time)
+    print("total time :", end_time-start_time)
     return result_list
 
 
@@ -85,10 +97,25 @@ def save_result(request, result_list):
 
 def img_encoding(img_path):
     # 고객 사진 인코딩
+    start_time = time.process_time()
+    print("encoding start time :", start_time)
     img_path = "media/"+img_path
-    img_bgr = cv2.imread(img_path)
-    img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+    print(img_path)
+    # 한글 파일 못 읽는 것 수정
+    ff = np.fromfile(img_path, np.uint8)
+    img = cv2.imdecode(ff, cv2.IMREAD_UNCHANGED)
+    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    # img_bgr = cv2.imread(img_path)
+    # img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+
     _, img_shapes, _ = find_faces(img_rgb)
-    descs = encode_faces(img_rgb, img_shapes)[0]
+    print(img_shapes)
+    descs = []
+    if img_shapes != []:
+        descs = encode_faces(img_rgb, img_shapes)[0]
+
+    end_time = time.process_time()
+    print("encoding end time :", end_time)
+    print("encoding Time :", end_time-start_time)
 
     return descs
