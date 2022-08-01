@@ -69,7 +69,9 @@ def comparison(target_desc):
     print(len(all_crawling_data))
     for i in range(len(all_crawling_data)):
         img_path = str(all_crawling_data[i].img)
-        tmp_desc = img_encoding(img_path)
+        # tmp_desc = img_encoding(img_path)
+        tmp_desc = eval(all_crawling_data[i].desc)
+        tmp_desc = np.array(tmp_desc)
         print(img_path)
         if tmp_desc != []:
             print("have faces")

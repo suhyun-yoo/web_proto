@@ -8,6 +8,8 @@ import time
 from os.path import getsize
 from .models import CrawlingData
 import moviepy.editor as mp
+from searchapp.face_comparison import img_encoding
+
 
 def image_download(BASE_URL):
     # 헤더 설정 (필요한 대부분의 정보 제공 -> Bot Block 회피)
@@ -67,11 +69,17 @@ def image_download(BASE_URL):
                     path = path.split('.')[0] + '.png'
                     ImageSequence.Iterator(im)[0].save("media/" + path)
 
+                img_desc = img_encoding(path + "[1]")
+                if type(img_desc) != list:
+                    img_desc = img_desc.tolist()
+                print(len(str(img_desc)))
                 print("name :", path)
                 crawlingimg = CrawlingData(
                     link=BASE_URL,
                     img=path + "[1]",
+                    desc=str(img_desc),
                 )
+
                 crawlingimg.save()
                 file.close()
             else:
@@ -93,9 +101,16 @@ def image_download(BASE_URL):
                 ImageSequence.Iterator(im)[0].save("media/" + path)
 
             print("name :", path)
+            img_desc = img_encoding(path)
+            print("len :", len(img_desc))
+            if type(img_desc) != list:
+                img_desc = img_desc.tolist()
+            print(len(str(img_desc)))
+            time.sleep(10)
             crawlingimg = CrawlingData(
                 link=BASE_URL,
                 img=path,
+                desc=str(img_desc),
             )
 
             crawlingimg.save()
