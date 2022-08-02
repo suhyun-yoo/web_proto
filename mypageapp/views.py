@@ -14,5 +14,4 @@ def mypage(request):
     searched_list = []
     for req in request_list:
         searched_list.extend(SearchedData.objects.all().filter(request_id=req.id))
-
     return render(request, 'mypageapp/mypage.html', {'request_list': request_list, "searched_list": searched_list, })
